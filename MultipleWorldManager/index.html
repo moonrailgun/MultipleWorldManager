@@ -1,99 +1,120 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
-		<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-		<title>Hello APP</title>
-		<link rel="stylesheet" type="text/css" href="./css/api.css" />
-		<link rel="stylesheet" type="text/css" href="./css/common.css" />
-		<link rel="stylesheet" type="text/css" href="./css/aui.css"/>
-		<style>
-			#title {
-				font-family: "";
-				font-size: 60px;
-				font-weight: 600;
-				margin-top: 30px;
-			}
-			#welcome {
-				margin: 30px auto 50px auto;
-				font-size: 40px;
-			}
-			#login {
-				width: 95%;
-				height: 100%;
-				margin: auto;
-			}
-			.login-form {
-				border: solid 1px #ddd;
-				border-radius: 5px;
-				overflow: hidden;
-				background-color: #ddd;
-			}
-			.login-form input {
-				border: none;
-				margin: 0 0 1px 0;
-				font-size: 18px;
-				padding: 15px !important;
-				border-radius: 0px;
-				height: auto;
-			}
-			.login-form input:last-child {
-				margin-bottom: 0;
-			}
-			button.aui-btn-block {
-				margin-top: 10px;
-			}
-			a{
-				margin-top:10px;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="wrap" class="aui-bg-info">
-			<div id="title" class="aui-text-center">
-				万界管理系统
-			</div>
-			<div id="welcome" class="aui-text-center">
-				--欢迎回来--
-			</div>
-			<div id="login">
-				<form class="login-form">
-					<input name="username" type="text" placeholder="用户名"/>
-					<input name="password" type="text" placeholder="密码"/>
-				</form>
-				<button class="aui-btn-block aui-btn-primary" onclick="OnLogin()">
-					登陆
-				</button>
-				<button class="aui-btn-block aui-btn-negative" onclick="OnRegister()">
-					注册
-				</button>
-				<a onclick="OnForgotPassword()" class="aui-pull-right"> 忘记密码？ </a>
-			</div>
-		</div>
-	</body>
-	<script type="text/javascript" src="./script/api.js"></script>
-	<script type="text/javascript">
-		apiready = function() {
-			var $wrap = $api.dom('#wrap');
-			$api.fixIos7Bar($wrap);
-		};
-		function OnLogin() {
-			api.alert({
-				msg : "点击了登陆"
-			});
-		}
 
-		function OnRegister() {
-			api.alert({
-				msg : "点击了注册"
-			});
-		}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>Hello APP</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+    <link rel="stylesheet" type="text/css" href="./css/common.css" />
+    <link rel="stylesheet" type="text/css" href="./css/aui.css" />
+    <style>
+    #title {
+        font-family: "";
+        font-size: 60px;
+        font-weight: 600;
+        margin-top: 30px;
+    }
+    
+    #welcome {
+        margin: 30px auto 50px auto;
+        font-size: 40px;
+    }
+    
+    #login {
+        width: 95%;
+        height: 100%;
+        margin: auto;
+    }
+    
+    .login-form {
+        border: solid 1px #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        background-color: #ddd;
+    }
+    
+    .login-form input {
+        border: none;
+        margin: 0 0 1px 0;
+        font-size: 18px;
+        padding: 15px !important;
+        border-radius: 0px;
+        height: auto;
+    }
+    
+    .login-form input:last-child {
+        margin-bottom: 0;
+    }
+    
+    button.aui-btn-block {
+        margin-top: 10px;
+    }
+    
+    a {
+        margin-top: 10px;
+    }
+    </style>
+</head>
 
-		function OnForgotPassword() {
-			api.alert({
-				msg : "点击了忘记密码"
-			});
-		}
-	</script>
+<body>
+    <div id="wrap" class="aui-bg-info">
+        <div id="title" class="aui-text-center">万界管理系统</div>
+        <div id="welcome" class="aui-text-center">--欢迎回来--</div>
+        <div id="login">
+            <form class="login-form">
+                <input id="username" name="username" type="text" placeholder="用户名" />
+                <input id="password" name="password" type="text" placeholder="密码" />
+            </form>
+            <button class="aui-btn-block aui-btn-primary" onclick="OnLogin()">登陆</button>
+            <button class="aui-btn-block aui-btn-negative" onclick="OnRegister()">注册</button>
+            <a onclick="OnForgotPassword()" class="aui-pull-right"> 忘记密码？ </a>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/mwmBase.js"></script>
+<script type="text/javascript">
+apiready = function() {
+    var $wrap = $api.dom('#wrap');
+    $api.fixIos7Bar($wrap);
+};
+
+function OnLogin() {
+    var usernameDOM = $api.dom("#username");
+    var passwordDOM = $api.dom("#password");
+    var username = $api.val(usernameDOM);
+    var password = $api.val(passwordDOM);
+
+    api.alert({
+        msg: "点击了登陆,直接进入主页",
+    });
+
+    var token = Login(username, password);
+
+    api.openWin({
+        name: 'Main',
+        url: './html/main.html',
+        bounces: false,
+        pageParam: {
+            username: username,
+            token: token
+        }
+    });
+}
+
+function OnRegister() {
+    api.alert({
+        msg: "点击了注册"
+    });
+}
+
+function OnForgotPassword() {
+    api.alert({
+        msg: "点击了忘记密码"
+    });
+}
+</script>
+
 </html>

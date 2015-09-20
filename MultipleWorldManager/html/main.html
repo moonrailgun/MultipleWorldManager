@@ -1,68 +1,221 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <title>APP</title>
+    <title>main</title>
     <link rel="stylesheet" type="text/css" href="../css/api.css" />
     <link rel="stylesheet" type="text/css" href="../css/common.css" />
-	<style>
-		#con{
-			margin:10px;
-			font-size: 28px; 
-		}
-		ul{
-			margin-bottom:10px;
-		}
-		.txt{ 
-			margin:5px 10px;
-			padding:5px;
-			color:#000;
-			word-wrap: break-word;
-		}
-	</style>
+    <style type="text/css">
+    html,
+    body {
+        height: 100%;
+        width: 100%;
+    }
+    a {
+        margin: 0;
+        display: inline-block;
+    }
+    #wrap {
+        height: 100%;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-flex-flow: column;
+        flex-flow: column;
+    }
+    
+    #main {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+    }
+    
+    #footer {
+        width: 100%;
+        text-align: center;
+        height: 56px;
+        line-height: 55px;
+        background-color: #f2f2f2;
+    }
+    
+    ul {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+    }
+    
+    #footer li {
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        height: 55px;
+    }
+    
+    .bottom_btn {
+        background-position-y: 4px;
+        padding-top: 16px;
+        font-size: 12px;
+        color: #323237;
+        width: 99%;
+        height: 39px;
+        background-repeat: no-repeat no-repeat;
+        background-position-x: center;
+        background-size: 30px;
+    }
+    
+    .summary {
+        background-image: url(../image/Home-48.png);
+    }
+    
+    .map {
+        background-image: url(../image/Message-Mail-48.png);
+    }
+    
+    .item {
+        background-image: url(../image/User-Login-48.png);
+    }
+    
+    .message {
+        background-image: url(../image/Bullets-48.png);
+    }
+    
+    .active .summary {
+        background-image: url(../image/Home-48-actived.png);
+    }
+    
+    .active .map {
+        background-image: url(../image/Message-Mail-48-actived.png);
+    }
+    
+    .active .item {
+        background-image: url(../image/User-Login-48-actived.png);
+    }
+    
+    .active .message {
+        background-image: url(../image/Bullets-48-actived.png);
+    }
+    
+    .active .bottom_btn {
+        color: #6ab494;
+        background-size: 30px;
+    }
+    
+    .topbar {
+        background: #f2f2f2;
+        height: 50px;
+        border-bottom: 1px solid #DDDFE3;
+        line-height: 50px;
+        text-align: center;
+        display: none;
+        color: #323237;
+    }
+    .activebar {
+        display: block;
+    }
+    </style>
 </head>
+
 <body>
-    <label id="con">Hello APP</label>
-	<div id='sys-info'></div>
+    <div id="wrap">
+        <header>
+            <div id="summary" class="topbar activebar">概述</div>
+            <div id="map" class="topbar">地图</div>
+            <div id="item" class="topbar">道具</div>
+            <div id="message" class="topbar">消息</div>
+        </header>
+        <div id="main"></div>
+        <div id="footer">
+            <ul>
+                <li tapmode="active" class="active" onclick="randomSwitchBtn(this,'summary',0)">
+                    <a class="bottom_btn summary">概述</a>
+                </li>
+                <li tapmode="active" onclick="randomSwitchBtn(this,'map',1)">
+                    <a class="bottom_btn map">地图</a>
+                </li>
+                <li tapmode="active" onclick="randomSwitchBtn(this,'item',2)">
+                    <a class="bottom_btn item">道具</a>
+                </li>
+                <li tapmode="active" onclick="randomSwitchBtn(this,'more',3)">
+                    <a class="bottom_btn message">消息</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
+apiready = function() {
+    var pageParam = api.pageParam;
+    var username = pageParam['username'];
+    var token = pageParam['token']
+    api.alert({
+        title: 'title',
+        msg: token
+    });
+};
 
-    apiready = function(){
-		var ver = api.version;
-		var sType = api.systemType;
-		var sVer = api.systemVersion;
-		var id = api.deviceId;
-		var model = api.deviceModel;
-		var name = api.deviceName;
-		var cType = api.connectionType;
-		var winName = api.winName;
-		var winWidth = api.winWidth;
-		var winHeight = api.winHeight;
-		var frameName = api.frameName||'';
-		var frameWidth = api.frameWidth||'';
-		var frameHeight = api.frameHeight||'';
+function Init() {
+    var $header = $api.dom('header');
+    $api.fixIos7Bar($header);
+    var $body = $api.dom('body');
+    var $footer = $api.byId('footer');
+    var header_h = $api.offset($header).h;
+    var body_h = $api.offset($body).h;
+    var body_w = $api.offset($body).w;
+    var footer_h = $api.offset($footer).h;
+    var rect_h = body_h - header_h - footer_h;
+    api.openFrameGroup({
+        name: 'group',
+        scrollEnabled: false,
+        preload: 0,
+        rect: {
+            x: 0,
+            y: header_h,
+            w: body_w,
+            h: rect_h
+        },
+        index: 0,
+        frames: [{
+            name: 'home',
+            url: 'home.html'
+        }, {
+            name: 'map',
+            url: 'map.html'
+        }, {
+            name: 'item',
+            url: 'item.html'
+        }, {
+            name: 'message',
+            url: 'message.html'
+        }]
+    }, function(ret, err) {
+        //回调
+    });
+}
 
-		var str = '<ul>';
-		str += '<li><div class="txt">引擎版本信息: ' + ver + '</div></li>';
-		str += '<li><div class="txt">系统类型: ' + sType + '</div></li>';
-		str += '<li><div class="txt">系统版本: ' + sVer + '</div></li>';
-		str += '<li><div class="txt">设备标识: ' + id + '</div></li>';
-		str += '<li><div class="txt">设备型号: ' + model + '</div></li>';
-		str += '<li><div class="txt">设备名称: ' + name + '</div></li>';
-		str += '<li><div class="txt">网络状态: ' + cType + '</div></li>';
-		str += '<li><div class="txt">主窗口名字: ' + winName + '</div></li>';
-		str += '<li><div class="txt">主窗口宽度: ' + winWidth + '</div></li>';
-		str += '<li><div class="txt">主窗口高度: ' + winHeight + '</div></li>';
-		str += '<li><div class="txt">子窗口名字: ' + frameName + '</div></li>';
-		str += '<li><div class="txt">子窗口宽度: ' + frameWidth + '</div></li>';
-		str += '<li><div class="txt">子窗口高度: ' + frameHeight + '</div></li>';
-		str += '</ul>';
-
-		$api.byId('sys-info').innerHTML = str;
-
-    };
+// 随意切换按钮
+function randomSwitchBtn(obj, name, index) {
+    var $header = $api.dom('header');
+    var $titleBar = $api.domAll($header, '.topbar');
+    for (var i = 0; i < $titleBar.length; i++) {
+        $api.removeCls($titleBar[i], 'activebar');
+    }
+    $api.addCls($api.byId(name), 'activebar');
+    var $footer = $api.byId('footer');
+    var $footerBar = $api.domAll($footer, 'li');
+    for (var j = 0; j < $footerBar.length; j++) {
+        $api.removeCls($footerBar[j], 'active');
+    }
+    $api.addCls(obj, 'active');
+    api.setFrameGroupIndex({
+        name: 'group',
+        index: index
+    });
+}
 </script>
+
 </html>
