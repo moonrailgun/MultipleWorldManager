@@ -152,10 +152,12 @@ apiready = function() {
     var pageParam = api.pageParam;
     var username = pageParam['username'];
     var token = pageParam['token']
-    api.alert({
+    /*api.alert({
         title: 'title',
         msg: token
-    });
+    });*/
+
+    Init();//初始化框架
 };
 
 function Init() {
@@ -180,8 +182,8 @@ function Init() {
         },
         index: 0,
         frames: [{
-            name: 'home',
-            url: 'home.html'
+            name: 'summary',
+            url: 'summary.html'
         }, {
             name: 'map',
             url: 'map.html'

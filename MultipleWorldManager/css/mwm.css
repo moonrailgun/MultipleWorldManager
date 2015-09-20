@@ -1,0 +1,16 @@
+.userinfo_sex {
+    background: url(../image/icon_groups.png) no-repeat;
+    display: inline-block;
+    height: 14px;
+    width: 14px;
+    vertical-align: middle;
+    margin:0 -5px  0 0;
+}
+
+.userinfo_sex.userinfo_sex_male {
+    background-position: 0 0px;
+}
+
+.userinfo_sex.userinfo_sex_female {
+    background-position: 0 -18px;
+}
