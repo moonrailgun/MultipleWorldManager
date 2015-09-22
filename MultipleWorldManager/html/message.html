@@ -3,21 +3,113 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>message</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+        #header {
+            float: left;
+        }
+
+        #header div {
+            line-height: 46px;
+            border-right: solid 1px #6e8da6;
+        }
+
+        #header div:last-child {
+            border-right: 0;
+        }
+
+        #header div.actived {
+            background-color: #3498db;
+        }
+
+        #mainInfo {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
+<div id="header">
+    <div class="aui-col-xs-4 actived" onclick="ToggleModules(this,0)">在线聊天室</div>
+    <div class="aui-col-xs-4" onclick="ToggleModules(this,1)">好友</div>
+    <div class="aui-col-xs-4" onclick="ToggleModules(this,2)">邮件</div>
+</div>
+<div class="aui-clearfix"></div>
+<div id="mainInfo">测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本</div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-apiready = function()
-{
-	
-}
+    apiready = function () {
+        Init();
+    };
+
+    function Init() {
+        var $header = $api.dom('header');
+        $api.fixIos7Bar($header);
+        var $body = $api.dom('body');
+        var $footer = $api.byId('footer');
+        var header_h = $api.offset($header).h;
+        var body_h = $api.offset($body).h;
+        var body_w = $api.offset($body).w;
+        var footer_h = $api.offset($footer).h;
+        var rect_h = body_h - header_h - footer_h;
+        api.openFrameGroup({
+            name: 'group',
+            scrollEnabled: false,
+            preload: 0,
+            rect: {
+                x: 0,
+                y: header_h,
+                w: body_w,
+                h: rect_h
+            },
+            index: 0,
+            frames: [{
+                name: 'summary',
+                url: 'summary.html'
+            }, {
+                name: 'map',
+                url: 'map.html'
+            }, {
+                name: 'item',
+                url: 'item.html'
+            }, {
+                name: 'message',
+                url: 'message.html'
+            }]
+        }, function(ret, err) {
+            //回调
+        });
+    }
+
+    //切换模块
+    function ToggleModules(obj,index) {
+        var $header = $api.byId('header');
+        var $headerButton = $api.domAll($header, 'div');
+        //清除激活的按钮
+        for (var j = 0; j < $headerButton.length; j++) {
+            $api.removeCls($headerButton[j], 'actived');
+        }
+        //添加激活的按钮
+        $api.addCls(obj, 'actived');
+        api.setFrameGroupIndex({
+            name: 'group',
+            index: index
+        });
+    }
+
+    //载入聊天室界面
+    function ShowChattingRoom() {
+
+    }
+
+
 </script>
 
 </html>
