@@ -1,0 +1,14 @@
+{
+  "name": "MWMServer",
+  "version": "0.0.1",
+  "description": "a server app for game MultipleWorldManager use by NodeJS",
+  "dependencies": {
+    "express": "^4.13.3",
+    "socket.io": "^1.3.7"
+  },
+  "Author":{
+    "name":"moonrailgun",
+    "email":"1046935299@qq.com",
+    "url":"http://www.moonrailgun.com/"
+  }
+}
