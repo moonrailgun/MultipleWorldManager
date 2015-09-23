@@ -41,75 +41,58 @@
     <div class="aui-col-xs-4" onclick="ToggleModules(this,2)">邮件</div>
 </div>
 <div class="aui-clearfix"></div>
-<div id="mainInfo">测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本测试文本</div>
+<div id="mainInfo"></div>
 </body>
-<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.4.js"></script>
 <script type="text/javascript">
     apiready = function () {
-        Init();
+
     };
-
-    function Init() {
-        var $header = $api.dom('header');
-        $api.fixIos7Bar($header);
-        var $body = $api.dom('body');
-        var $footer = $api.byId('footer');
-        var header_h = $api.offset($header).h;
-        var body_h = $api.offset($body).h;
-        var body_w = $api.offset($body).w;
-        var footer_h = $api.offset($footer).h;
-        var rect_h = body_h - header_h - footer_h;
-        api.openFrameGroup({
-            name: 'group',
-            scrollEnabled: false,
-            preload: 0,
-            rect: {
-                x: 0,
-                y: header_h,
-                w: body_w,
-                h: rect_h
-            },
-            index: 0,
-            frames: [{
-                name: 'summary',
-                url: 'summary.html'
-            }, {
-                name: 'map',
-                url: 'map.html'
-            }, {
-                name: 'item',
-                url: 'item.html'
-            }, {
-                name: 'message',
-                url: 'message.html'
-            }]
-        }, function(ret, err) {
-            //回调
-        });
-    }
-
     //切换模块
     function ToggleModules(obj,index) {
-        var $header = $api.byId('header');
-        var $headerButton = $api.domAll($header, 'div');
+        var $doms = $("#header div");
+        alert($doms.length);
         //清除激活的按钮
-        for (var j = 0; j < $headerButton.length; j++) {
-            $api.removeCls($headerButton[j], 'actived');
+        for (var j = 0; j < $doms.length; j++) {
+            $doms[j].removeClass("actived");
         }
         //添加激活的按钮
-        $api.addCls(obj, 'actived');
-        api.setFrameGroupIndex({
-            name: 'group',
-            index: index
+        obj.addClass("actived");
+
+        if(index == 0)
+        {
+            ShowChattingRoom();
+        }
+        else
+        {
+            alert("未定义的方法");
+        }
+    }
+
+    function ShowChattingRoom()
+    {
+        var $mainInfoDom = $("#mainInfo");
+
+        $.get("chattingRoom.html",function(data,status){
+            $mainInfoDom.html(data);
         });
+
+        /*
+        api.ajax({
+            url:'./chattingRoom.html',
+            method:'get',
+            dataType:'text'
+        },function(ret,err){
+            if (ret) {
+                api.alert({msg: ret});
+                $api.html(mainInfoDom, "");
+            }else {
+                api.alert({
+                    msg:('错误码：'+err.code+'；错误信息：'+err.msg+'网络状态码：'+err.statusCode)
+                });
+            }
+        })*/
     }
-
-    //载入聊天室界面
-    function ShowChattingRoom() {
-
-    }
-
-
 </script>
 
 </html>
