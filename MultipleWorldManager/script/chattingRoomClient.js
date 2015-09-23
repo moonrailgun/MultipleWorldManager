@@ -12,13 +12,15 @@
         dc = d.compatMode == 'CSS1Compat',
         dx = dc ? dd : db,
         ec = encodeURIComponent,
-        wsURL = "ws://127.0.0.1:3000";
+        wsURL = "ws://127.0.0.1:3000";//服务器地址
 
+    //聊天逻辑处理对象
     w.CHAT = {
         msgObj: d.getElementById("message"),
         screenheight: w.innerHeight ? w.innerHeight : dx.clientHeight,
         username: null,
         userid: null,
+        portraitimg: '../image/defaultChatPortrait.jpg',
         socket: null,
         //让浏览器滚动条保持在最低部
         scrollToBottom: function () {
@@ -46,6 +48,7 @@
         genUid: function () {
             return new Date().getTime() + "" + Math.floor(Math.random() * 899 + 100);
         },
+
         //更新系统消息，本例中在用户加入、退出的时候调用
         updateSysMsg: function (o, action) {
             //当前在线用户列表
@@ -61,7 +64,7 @@
             for (key in onlineUsers) {
                 if (onlineUsers.hasOwnProperty(key)) {
                     userhtml += separator + onlineUsers[key];
-                    separator = '、';
+                    separator = '、';//分隔符
                 }
             }
             d.getElementById("onlinecount").innerHTML = '当前共有 ' + onlineCount + ' 人在线，在线列表：' + userhtml;
@@ -89,15 +92,15 @@
             }
             return false;
         },
-        init: function (username) {
+        init: function () {
             /*
              客户端根据时间和随机数生成uid,这样使得聊天室用户名称可以重复。
              实际项目中，如果是需要用户登录，那么直接采用用户的uid来做标识就可以
              */
-            this.userid = this.genUid();
-            this.username = username;
+            this.userid = $api.getStorage('uid');
+            this.username = $api.getStorage('username');
 
-            d.getElementById("showusername").innerHTML = this.username;
+            d.getElementById("showusername").innerHTML = this.username;//显示名字
             this.msgObj.style.minHeight = (this.screenheight - db.clientHeight + this.msgObj.clientHeight) + "px";
             this.scrollToBottom();
 
@@ -121,7 +124,7 @@
             this.socket.on('message', function (obj) {
                 var isme = (obj.userid == CHAT.userid) ? true : false;
                 var contentDiv = '<div>' + obj.content + '</div>';
-                var usernameDiv = '<span>' + obj.username + '</span>';
+                var usernameDiv = '<span class="chatPortrait" style="background-image: url(' + CHAT.portraitimg + ')"></span>';
 
                 var section = d.createElement('section');
                 if (isme) {
@@ -135,21 +138,6 @@
                 CHAT.scrollToBottom();
             });
 
-        }
-    };
-
-    //通过“回车”提交用户名
-    d.getElementById("username").onkeydown = function (e) {
-        e = e || event;
-        if (e.keyCode === 13) {
-            CHAT.usernameSubmit();
-        }
-    };
-    //通过“回车”提交信息
-    d.getElementById("content").onkeydown = function (e) {
-        e = e || event;
-        if (e.keyCode === 13) {
-            CHAT.submit();
         }
     };
 })();

@@ -136,6 +136,12 @@ section.service > div:before {
     border-bottom: 4px solid transparent;
 }
 
+section.service .chatPortrait, section.user .chatPortrait {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+}
+
 .input-box {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -189,4 +195,12 @@ section.service > div:before {
 .action button:active {
     color: #fff;
     background-color: #0044cc;
+}
+
+#onlinecount {
+    background: #EFEFF4;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-left: 10px;
+    color: #666;
 }

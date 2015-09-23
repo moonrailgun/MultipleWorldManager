@@ -29,7 +29,7 @@ io.on('connection', function (socket) {
 
         //向所有客户端广播用户加入
         io.emit('login', {onlineUsers: onlineUsers, onlineCount: onlineCount, user: obj});
-        console.log(obj.username + '加入了聊天室');
+        console.log(obj.username + '加入了聊天室(id:'+obj.userid+';username:'+obj.username+')');
     });
 
     //监听用户退出

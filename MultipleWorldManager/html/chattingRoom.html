@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="../css/aui.css"/>
 <link rel="stylesheet" type="text/css" href="../css/chattingRoom.css"/>
 <div id="loginbox">
     <div style="width:260px;margin:200px auto;">
@@ -19,9 +20,7 @@
 <div id="doc">
     <div id="chat">
         <div id="message" class="message">
-            <div id="onlinecount"
-                 style="background:#EFEFF4; font-size:12px; margin-top:10px; margin-left:10px; color:#666;">
-            </div>
+            <div id="onlinecount"></div>
         </div>
         <div class="input-box">
             <div class="input">
@@ -35,5 +34,11 @@
 </div>
 </div>
 </body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script>
+    //调试用
+    $api.setStorage('uid', '101011');
+    $api.setStorage('username','moonrailgun');
+</script>
 <script type="text/javascript" src="../script/socket.io.js"></script>
 <script type="text/javascript" src="../script/chattingRoomClient.js"></script>
