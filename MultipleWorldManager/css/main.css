@@ -1,0 +1,107 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+a {
+    margin: 0;
+    display: inline-block;
+}
+#wrap {
+    height: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-flex-flow: column;
+    flex-flow: column;
+}
+
+#main {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+#footer {
+    width: 100%;
+    text-align: center;
+    height: 56px;
+    line-height: 55px;
+    background-color: #f2f2f2;
+}
+
+ul {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+#footer li {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    height: 55px;
+}
+
+.bottom_btn {
+    background-position-y: 4px;
+    padding-top: 16px;
+    font-size: 12px;
+    color: #323237;
+    width: 99%;
+    height: 39px;
+    background-repeat: no-repeat no-repeat;
+    background-position-x: center;
+    background-size: 30px;
+}
+
+.summary {
+    background-image: url(../image/View-Medium-Icons-48.png);
+}
+
+.map {
+    background-image: url(../image/Map-48.png);
+}
+
+.item {
+    background-image: url(../image/Box-48.png);
+}
+
+.message {
+    background-image: url(../image/Message-Information-48.png);
+}
+
+.active .summary {
+    background-image: url(../image/View-Medium-Icons-48-actived.png);
+}
+
+.active .map {
+    background-image: url(../image/Map-48-actived.png);
+}
+
+.active .item {
+    background-image: url(../image/Box-48-actived.png);
+}
+
+.active .message {
+    background-image: url(../image/Message-Information-48-actived.png);
+}
+
+.active .bottom_btn {
+    color: #6ab494;
+    background-size: 30px;
+}
+
+.topbar {
+    background: #f2f2f2;
+    height: 50px;
+    border-bottom: 1px solid #DDDFE3;
+    line-height: 50px;
+    text-align: center;
+    display: none;
+    color: #323237;
+}
+.activebar {
+    display: block;
+}

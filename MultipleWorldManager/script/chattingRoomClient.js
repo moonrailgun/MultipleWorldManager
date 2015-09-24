@@ -12,7 +12,7 @@
         dc = d.compatMode == 'CSS1Compat',
         dx = dc ? dd : db,
         ec = encodeURIComponent,
-        wsURL = "ws://127.0.0.1:3000";//服务器地址
+        wsURL = "ws://192.168.0.151:3000";//服务器地址
 
     //聊天逻辑处理对象
     w.CHAT = {
@@ -80,17 +80,6 @@
             section.innerHTML = html;
             this.msgObj.appendChild(section);
             this.scrollToBottom();
-        },
-        //第一个界面用户提交用户名
-        usernameSubmit: function () {
-            var username = d.getElementById("username").value;
-            if (username != "") {
-                d.getElementById("username").value = '';
-                d.getElementById("loginbox").style.display = 'none';
-                d.getElementById("chatbox").style.display = 'block';
-                this.init(username);
-            }
-            return false;
         },
         init: function () {
             /*

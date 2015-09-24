@@ -5,15 +5,13 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-app.get('/', function (req, res) {
-    res.send('<h1 style="text-align: center; line-height: 70px;">请不要尝试直接连接服务器</h1>');
-});
-
+var router = require('./router');
+router.InitRouter(app);//初始化路由
 
 var onlineUsers = {};//在线用户
 var onlineCount = 0;//当前在线人数
 io.on('connection', function (socket) {
-    console.log('a user connected');
+    console.log('一个客户端已连接到聊天室,当前在线 '+onlineCount+' 人');
 
     //监听新用户加入
     socket.on('login', function (obj) {
@@ -58,6 +56,7 @@ io.on('connection', function (socket) {
     });
 
 });
+
 http.listen(3000, function () {
     console.log('listening on *:3000');
 });
