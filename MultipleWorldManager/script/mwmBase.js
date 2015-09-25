@@ -4,6 +4,13 @@ function Login(username, password) {
 	return  token;
 }
 
+function SetStorageJsonData(storageKey,dataKey,dataValue)
+{
+	var data = $api.getStorage(storageKey);
+	data[dataKey] = dataValue;
+	$api.setStorage(storageKey, data);
+}
+
 function InitConfig(){
 	//配置服务器信息
 	$api.setStorage('MWM_Server',{
