@@ -1,7 +1,7 @@
 #################
 ## NPM
 #################
-.MWMServer/node_modules/
+MWMServer/node_modules/
 
 #################
 ## SVN
