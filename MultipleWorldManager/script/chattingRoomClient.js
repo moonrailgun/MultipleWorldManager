@@ -12,7 +12,12 @@
         dc = d.compatMode == 'CSS1Compat',
         dx = dc ? dd : db,
         ec = encodeURIComponent,
-        wsURL = "ws://192.168.0.151:3000";//服务器地址
+        wsURL = "ws://192.168.0.151:3000",//默认服务器地址
+        serverConfig = $api.getStorage('MWM_Server');
+
+    if (serverConfig) {
+        wsURL = "ws://" + serverConfig['url'] + ":" + port;
+    }
 
     //聊天逻辑处理对象
     w.CHAT = {

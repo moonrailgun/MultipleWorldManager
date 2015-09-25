@@ -80,6 +80,8 @@
 apiready = function() {
     var $wrap = $api.dom('#wrap');
     $api.fixIos7Bar($wrap);
+
+    InitConfig();//初始化服务器信息
 };
 
 function OnLogin() {

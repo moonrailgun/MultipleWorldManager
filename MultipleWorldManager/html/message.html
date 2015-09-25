@@ -43,6 +43,7 @@
 <div class="aui-clearfix"></div>
 <div id="mainInfo"></div>
 </body>
+<script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/jquery-2.1.4.js"></script>
 <script type="text/javascript">
     apiready = function () {
@@ -50,14 +51,11 @@
     };
     //切换模块
     function ToggleModules(obj,index) {
-        var $doms = $("#header div");
-        alert($doms.length);
+        var $dom = $("#header div.actived");
         //清除激活的按钮
-        for (var j = 0; j < $doms.length; j++) {
-            $doms[j].removeClass("actived");
-        }
+        $dom.removeClass('actived');
         //添加激活的按钮
-        obj.addClass("actived");
+        $api.addCls(obj,'actived');
 
         if(index == 0)
         {

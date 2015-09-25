@@ -121,12 +121,11 @@ $(document).ready(function(){
         },function(ret,err){
             if (ret) {
                 var base64Data = ret.base64Data;
-                api.alert({msg: base64Data});
                 //修改头像为获取的数据
                 $('#portrait img').attr('src',base64Data);
 
                 //上传数据
-                
+
             } else{
                 api.alert({msg:err.msg});
             }
