@@ -90,7 +90,70 @@
 
     };
 
+    //每秒提升的数据
+    var $playerFollowerIncrement = 5;
+    var $playerBelieverIncrement = 10;
+    var $playerPowerIncrement = 10;
+    var $playerEnergyIncrement = 20;
+
+    //当前值
+    var $playerFollowerValue = 0;
+    var $playerFollowerAllValue = 1000;
+    var $playerBelieverValue = 0;
+    var $playerPowerValue = 0;
+    var $playerEnergyValue = 0;
+
+    //上限
+    var $playerFollowerAmount = 10000;//当前可以增长的上限
+    var $playerPowerAmount = 10000;
+    var $playerEnergyAmount = 20000;
+
+    //dom
+    var $playerFollowerSpan = $('#playerFollower span');
+    var $playerFollowerAllSpan = $('#playerFollowerAll span');
+    var $playerBelieverSpan = $('#playerBeliever span');
+    var $playerPowerSpan = $('#playerPower span');
+    var $playerEnergySpan = $('#playerEnergy span');
+    //更新数据
+    function UpdatePlayerData() {
+        //增加数据
+        $playerBelieverValue += $playerBelieverIncrement;
+        $playerPowerValue += $playerPowerIncrement;
+        $playerEnergyValue += $playerEnergyIncrement;
+
+        //超出上限判定
+        if ($playerFollowerValue >= $playerFollowerAmount) {
+            $playerFollowerAllValue += $playerFollowerIncrement - ( $playerFollowerValue - $playerFollowerAmount);
+            $playerFollowerValue = $playerFollowerAmount;
+        } else {
+            //小于则增加数据
+            $playerFollowerValue += $playerFollowerIncrement;
+            $playerFollowerAllValue += $playerFollowerIncrement;
+        }
+        if ($playerPowerValue > $playerPowerAmount) {
+            $playerPowerValue = $playerPowerAmount;
+        }
+        if ($playerEnergyValue > $playerEnergyAmount) {
+            $playerEnergyValue = $playerEnergyAmount;
+        }
+
+        if ($playerBelieverValue >= $playerFollowerAllValue * 0.1) {
+            $playerBelieverValue = $playerFollowerAllValue * 0.1;//圣徒数最多为信徒数的10%
+        }
+
+        //修改数据
+        $playerFollowerSpan.html($playerFollowerValue);
+        $playerFollowerAllSpan.html($playerFollowerAllValue);
+        $playerBelieverSpan.html($playerBelieverValue);
+        $playerPowerSpan.html($playerPowerValue + '/' + $playerPowerAmount);
+        $playerEnergySpan.html($playerEnergyValue + '/' + $playerEnergyAmount);
+
+        setTimeout(UpdatePlayerData, 1000);
+    }
+
     $(document).ready(function () {
+        UpdatePlayerData();
+
         $('#portrait').click(function () {
             //打开图片
             api.getPicture({
