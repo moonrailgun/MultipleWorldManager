@@ -84,6 +84,7 @@ apiready = function() {
     InitConfig();//初始化服务器信息
 };
 
+//点击登录按钮
 function OnLogin() {
     var usernameDOM = $api.dom("#username");
     var passwordDOM = $api.dom("#password");
@@ -107,12 +108,14 @@ function OnLogin() {
     });
 }
 
+//点击注册按钮
 function OnRegister() {
     api.alert({
         msg: "点击了注册"
     });
 }
 
+//
 function OnForgotPassword() {
     api.alert({
         msg: "点击了忘记密码"
