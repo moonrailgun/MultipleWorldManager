@@ -10,6 +10,7 @@ router.InitRouter(app);//初始化路由
 
 var onlineUsers = {};//在线用户
 var onlineCount = 0;//当前在线人数
+
 io.on('connection', function (socket) {
     console.log('一个客户端已连接到聊天室,当前在线 '+onlineCount+' 人');
 

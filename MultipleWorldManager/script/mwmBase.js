@@ -21,4 +21,15 @@ function InitConfig(){
 		version:'0.0.1',
 		author:'moonrailgun'
 	});
+
+	//测试数据
+	$api.setStorage('accountInfo',{
+		uid:1000
+	});
+}
+
+function GetServerHost()
+{
+	var server = $api.getStorage('MWM_Server');
+	return server['url']+':'+server['port'];
 }

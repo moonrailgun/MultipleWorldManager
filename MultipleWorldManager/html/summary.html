@@ -85,9 +85,41 @@
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript" src="../script/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="../script/mwmBase.js"></script>
 <script type="text/javascript">
     apiready = function () {
+        $('#portrait').click(function () {
+            //打开图片
+            api.getPicture({
+                encodingType: 'jpg',
+                mediaValue: 'pic',
+                destinationType: 'base64',
+                allowEdit: true,
+                quality: '50',
+                targetWidth: 140,
+                targetHeight: 140,
+                saveToPhotoAlbum: false
+            }, function (ret, err) {
+                if (ret) {
+                    var base64Data = ret.base64Data;
+                    //修改头像为获取的数据
+                    $('#portrait img').attr('src', base64Data);
 
+                    //上传数据
+                    var data = {
+                        uid: $api.getStorage('accountInfo')['uid'],
+                        img: base64Data
+                    };
+                    $.post('http://'+GetServerHost()+'/portrait', data,
+                            function (text, status) {
+                                alert(text);
+                            }
+                    );
+                } else {
+                    api.alert({msg: err.msg});
+                }
+            });
+        })
     };
 
     //每秒提升的数据
@@ -153,33 +185,7 @@
 
     $(document).ready(function () {
         UpdatePlayerData();
-
-        $('#portrait').click(function () {
-            //打开图片
-            api.getPicture({
-                encodingType: 'jpg',
-                mediaValue: 'pic',
-                destinationType: 'base64',
-                allowEdit: true,
-                quality: '50',
-                targetWidth: 140,
-                targetHeight: 140,
-                saveToPhotoAlbum: false
-            }, function (ret, err) {
-                if (ret) {
-                    var base64Data = ret.base64Data;
-                    //修改头像为获取的数据
-                    $('#portrait img').attr('src', base64Data);
-
-                    //上传数据
-
-                } else {
-                    api.alert({msg: err.msg});
-                }
-            });
-
-        });
-    })
+    });
 </script>
 
 </html>

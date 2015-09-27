@@ -4,14 +4,16 @@
 var exec = require("child_process").exec;
 var multiparty = require('multiparty');
 var fs = require('fs');
+var bodyParser = require('body-parser');
 
 //app为express对象
 function InitRouter(app) {
     //express配置
     app.locals.title = "MWMServer";
+    //app.use(bodyParser.json());
+    app.use(bodyParser.urlencoded({ extended: true }));
 
     //越上面优先级越高
-
     app.get('/', function (req, res) {
         res.send('<h1 style="text-align: center; line-height: 70px;">请不要尝试直接连接服务器</h1>');
     });
@@ -19,13 +21,50 @@ function InitRouter(app) {
         res.send('login');
     });
 
-    app.get('/ls', function (req, res) {
-        exec("ls -lah", function (error, stdout, stderr) {
-            var con = stdout;
-            con = con.replace(/\n/g, "<br />");
-            res.send(con);
+    app.get('/portrait', function (req, res) {
+        var uid;
+
+        if (uid = req.query.uid) {
+            var options = {
+                root: __dirname + '/upload/portrait/',
+                dotfiles: 'deny',
+                headers: {
+                    'x-timestamp': Date.now(),
+                    'x-sent': true
+                }
+            };
+
+            res.sendFile(uid + '.jpg', options, function (err) {
+                if (err) {
+                    console.log(err);
+                    res.status(err.status).end();
+                }
+                else {
+                    console.log('Sent:', uid + '.jpg');
+                }
+            });
+        } else {
+            res.send('没有uid参数');
+        }
+    });
+    app.post('/portrait', function (req, res) {
+        console.log('头像上传请求:');
+        console.log(req.body);
+        var uid = req.body.uid;
+        var img = req.body.img;
+
+        var base64Data = img.replace(/^data:image\/\w+;base64,/, "");//过滤data:URL
+        var dataBuffer = new Buffer(base64Data, 'base64');
+        fs.writeFile("./upload/portrait/" + uid + ".jpg", dataBuffer, function (err) {
+            if (err) {
+                res.send(err);
+            } else {
+                res.send("上传成功！");
+                console.log("上传成功！")
+            }
         });
     });
+
 
     app.get('/upload', function (req, res) {
         var body = '<html>' +
