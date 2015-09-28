@@ -1,26 +1,43 @@
 /**
  * Created by Chen on 2015-09-21.
  */
-var exec = require("child_process").exec;
 var multiparty = require('multiparty');
 var fs = require('fs');
 var bodyParser = require('body-parser');
+var mwmSql = require('./mwmSql');
 
 //app为express对象
 function InitRouter(app) {
     //express配置
     app.locals.title = "MWMServer";
     //app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.urlencoded({extended: true}));
 
     //越上面优先级越高
     app.get('/', function (req, res) {
         res.send('<h1 style="text-align: center; line-height: 70px;">请不要尝试直接连接服务器</h1>');
     });
-    app.get('/login', function (req, res) {
-        res.send('login');
+
+    app.post('/login', function (req, res) {
+        //登陆
+        console.log("账户登陆请求:");
+        console.log(req.body);
+        if (req.body.account != undefined && req.body.password != undefined) {
+            var account = req.body.account;
+            var password = req.body.password;
+            var sql = "SELECT id,account,username FROM account WHERE account = '" + account + "' AND password = '" + password + "'";
+            mwmSql.query(sql, function (ret) {
+                console.log(ret);
+                res.send(ret);
+            })
+        }
+        else{
+            console.log("错误:账号或密码为空");
+            res.send("错误:账号或密码为空");
+        }
     });
 
+    //头像处理
     app.get('/portrait', function (req, res) {
         var uid;
 

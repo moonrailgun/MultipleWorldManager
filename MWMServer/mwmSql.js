@@ -1,17 +1,16 @@
 /**
  * Created by Chen on 2015-09-26.
  */
-
-
+    
 var mysql = require('mysql');
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'mwm'
-});
 
 function query(sql, func) {
+    var connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: 'mwm'
+    });
     var result = {};
 
     connection.connect();//打开连接
