@@ -3,21 +3,203 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
     <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
     <title>item</title>
-    <link rel="stylesheet" type="text/css" href="../css/api.css" />
-    <link rel="stylesheet" type="text/css" href="../css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+        .aui-list-view-cell.mrg-list-view-cell-active {
+            background-color: #eee;
+        }
+        .aui-list-view-cell.mrg-list-view-cell-active .aui-arrow-right:after {
+            content: '\e654';
+        }
+        .aui-list-view .aui-list-view-cell span.aui-badge {
+            margin-right: 20px;
+        }
+        .aui-list-view .aui-list-view-cell .mrg-collapse-content {
+            position: relative;
+            display: none;
+            overflow: hidden;
+            margin: 11px -15px -11px;
+            padding: 8px 15px;
+            -webkit-transition: height .35s ease;
+            -o-transition: height .35s ease;
+            transition: height .35s ease;
+            border: 1px solid #ddd;
+            background: #fff;
+        }
+        .aui-list-view .aui-list-view-cell.mrg-list-view-cell-active .mrg-collapse-content {
+            display: block;
+        }
+    </style>
 </head>
-
 <body>
+<div class="aui-content">
+    <div class="aui-card" style="margin-top:10px;">
+        <ul class="aui-list-view">
+            <li class="aui-list-view-cell">
+                <a class="aui-arrow-right">消息</a>
+                <div class="mrg-collapse-content">
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+                </div>
+            </li>
+            <li class="aui-list-view-cell">
+                <a class="aui-arrow-right">消息</a>
+                <div class="mrg-collapse-content">
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+                </div>
+            </li>
+            <li class="aui-list-view-cell">
+                <a class="aui-arrow-right">消息</a>
+
+                <div class="mrg-collapse-content">
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+                </div>
+            </li>
+            <li class="aui-list-view-cell">
+                <a class="aui-arrow-right">消息</a>
+
+                <div class="mrg-collapse-content">
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+                </div>
+            </li>
+            <li class="aui-list-view-cell">
+                <a class="aui-arrow-right">消息</a>
+
+                <div class="mrg-collapse-content">
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+                </div>
+            </li>
+            <li class="aui-list-view-cell">
+                <a class="aui-arrow-right">消息</a>
+
+                <div class="mrg-collapse-content">
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+                </div>
+            </li>
+            <li class="aui-list-view-cell">
+                <a class="aui-arrow-right">消息</a>
+
+                <div class="mrg-collapse-content">
+                    <p>
+                        消息消息~~~~~~~~~~~~~
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
 <script type="text/javascript">
-apiready = function()
-{
-	
-}
+    apiready = function() {
+    };
+
+    window.onload = function() {
+        var allCell = document.getElementsByClassName("aui-list-view-cell");
+        for (var i = 0; i < allCell.length; i++) {
+            var attr = document.createAttribute("onclick");
+            attr.nodeValue = "toggleState(this)";
+            allCell[i].attributes.setNamedItem(attr);
+        }
+    }
+    /*
+     * 点击事件
+     */
+    function toggleState(dom) {
+        clearNewFlag(dom);
+        if (!hasClass(dom, "mrg-list-view-cell-active")) {
+            clearActive();
+            dom.className = "aui-list-view-cell mrg-list-view-cell-active";
+        } else {
+            dom.className = "aui-list-view-cell";
+        }
+    }
+
+    function hasClass(dom, className) {
+        className = className.replace(/^\s|\s$/g, "")
+        return (" " + ((dom || {}).className || "").replace(/\s/g, " ") + " "
+                ).indexOf(" " + className + " ") >= 0
+    }
+
+    function clearActive() {
+        var allCell = document.getElementsByClassName("aui-list-view-cell mrg-list-view-cell-active");
+        for (var i = 0; i < allCell.length; i++) {
+            allCell[i].className = "aui-list-view-cell";
+        }
+    }
+
+    function clearNewFlag(dom) {
+        var childList = dom.childNodes;
+        for (var i = 0; i < childList.length; i++) {
+            if(childList[i].tagName == "SPAN")
+            {
+                dom.removeChild(childList[i]);
+                return;
+            }
+        }
+    }
+
 </script>
 
 </html>
