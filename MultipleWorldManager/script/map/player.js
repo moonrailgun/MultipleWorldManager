@@ -2,7 +2,7 @@
  * Created by Chen on 2015-10-01.
  */
 
-//玩家
+//玩家对象
 var Kami = function () {
     var kami = this;
 
@@ -91,9 +91,88 @@ var Kami = function () {
     };
 
     this.draw = function(context){
+        //kami.x+=1;kami.y+=1;
 
-    }
+        //透明度变化
+        var opacity = Math.max(Math.min(20 / Math.max(kami.timeSinceLastServerUpdate-300,1),1),.2).toFixed(3);//四舍五入保留三位小数
+
+        if(kami.hover && isAuthorized()){
+            context.fillStyle = 'rgba(192, 253, 247,'+opacity+')';
+        }
+        else{
+            context.fillStyle = 'rgba(226,219,226,'+opacity+')';
+        }
+
+        //设置阴影
+        context.shadowOffsetX = 0;
+        context.shadowOffsetY = 0;
+        context.shadowBlur = 6;
+        context.shadowColor = 'rgba(255,255,255,'+opacity*0.7+')';
+
+        //绘制圆形
+        context.beginPath();
+        context.arc(kami.x, kami.y,kami.size,kami.angle + Math.PI * 2.7,kami.angle+Math.PI * 1.3,true);
+
+        kami.tail.draw(context);
+
+        context.closePath();
+        context.fill();
+
+        context.shadowBlur = 0;
+        context.shadowColor = '';
+
+        drawName(context);
+        drawMessage(context);
+    };
+
+    var isAuthorized = function() {
+        return tadpole.name.charAt('0') == "@";
+    };
+
+    //绘制名字
+    var drawName = function(context){
+
+    };
+
+    //绘制消息
+    var drawMessage = function(context){
+
+    };
+
+    // 构造函数
+    (function() {
+        kami.tail = new Tail(kami);
+    })();
 };
+
+var Tail = function(kami){
+    var tail = this;
+    tail.joints = [];
+
+    var kami = kami;
+    var jointSpacing = 1.4;//节点距离
+    var animationRate = 0;
+
+    this.update = function(){
+        animationRate += (.2 + kami.momentum / 10);
+    };
+
+    this.draw = function(){
+        var path = [[],[]];
+
+        //预留
+    };
+
+    (function() {
+        for(var i = 0; i < 15; i++) {
+            tail.joints.push({
+                x: 0,
+                y: 0,
+                angle: Math.PI*2
+            })
+        }
+    })();
+}
 
 //聊天信息
 var Message = function (msg) {
