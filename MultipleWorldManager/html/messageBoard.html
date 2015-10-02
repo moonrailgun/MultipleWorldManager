@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>官方留言板</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <style>
+        #main {
+            padding: 10px;
+            flex: 1;
+        }
+
+        #main .message {
+            padding: 10px 0;
+            border-bottom: 1px #ddd solid;
+        }
+
+        #main .message:last-child {
+            border: none;
+        }
+
+        #main .message .chatPortrait {
+            width: 40px;
+            height: 40px;
+            border-radius: 20px;
+        }
+        .message{
+            display: flex;
+            width: 100%;
+            float: left;
+            margin: 0;
+            position: relative;
+        }
+        .message .chatPortrait{
+            min-width: 40px;
+            float: left;
+        }
+        .message .messageInfo{
+            min-height: 72px;
+            height: auto;
+            width: auto;
+            vertical-align: top;
+            margin-left: 10px;
+            float: left;
+        }
+        .message .messageInfo .author{
+            font-size: 14px;
+        }
+        .message .messageInfo .content{
+
+        }
+        .message .messageInfo .like{
+            color: #15b5e9;
+            vertical-align: middle;
+            font-size: 14px;
+        }
+        .message .messageInfo .like .like-num:before{
+            content: "";
+            width: 5px;
+            height: 1px;
+            float: left;
+        }
+        .message .time{
+            position: absolute;
+            top:4px;
+            right: 10px;
+            float: right;
+            color: #8e8e8e;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav aui-bar-info">
+    <a class="aui-pull-left">
+        <span class="aui-iconfont aui-icon-left" onclick="api.closeWin();"></span>
+    </a>
+
+    <div class="aui-title">留言板</div>
+</header>
+<div class="aui-tab">
+    <ul class="aui-tab-nav">
+        <li class="active" onclick="SwitchMessage(this,0)">全部</li>
+        <li onclick="SwitchMessage(this,1)">官方</li>
+    </ul>
+</div>
+<div id="main">
+    <div class="message">
+        <img class="chatPortrait" src="../image/DefaultPortrait.jpg"/>
+        <div class="messageInfo">
+            <div class="author">moonrailgun</div>
+            <div class="content">测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言</div>
+            <div class="like"><span class="aui-iconfont aui-icon-likefill"></span><span class="like-num">12</span></div>
+        </div>
+        <div class="time">一天前</div>
+    </div>
+    <div class="message">
+        <img class="chatPortrait" src="../image/DefaultPortrait.jpg"/>
+        <div class="messageInfo">
+            <div class="author">moonrailgun</div>
+            <div class="content">测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言</div>
+            <div class="like"><span class="aui-iconfont aui-icon-likefill"></span><span class="like-num">12</span></div>
+        </div>
+        <div class="time">一天前</div>
+    </div>
+    <div class="message">
+        <img class="chatPortrait" src="../image/DefaultPortrait.jpg"/>
+        <div class="messageInfo">
+            <div class="author">moonrailgun</div>
+            <div class="content">测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言</div>
+            <div class="like"><span class="aui-iconfont aui-icon-likefill"></span><span class="like-num">12</span></div>
+        </div>
+        <div class="time">一天前</div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    apiready = function () {
+        var $header = $api.dom('header');
+        $api.fixIos7Bar($header);
+    };
+
+    function SwitchMessage(obj, index) {
+        var doms = $api.domAll('.aui-tab-nav li');
+        for (var i = 0; i < doms.length; i++) {
+            $api.removeCls(doms[i], 'active');
+        }
+        $api.addCls(obj, 'active');
+    }
+</script>
+</html>

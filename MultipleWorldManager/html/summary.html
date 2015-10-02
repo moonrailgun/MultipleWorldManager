@@ -35,41 +35,50 @@
 </div>
 <div class="aui-content">
     <ul class="aui-grid-nine">
-        <li class="aui-col-xs-4 aui-text-center">
+        <li class="aui-col-xs-4 aui-text-center" onclick="ClickModule(0)">
             <span class="aui-iconfont aui-icon-edit aui-text-primary"></span>
+
             <p>人物</p>
         </li>
-        <li class="aui-col-xs-4 aui-text-center">
+        <li class="aui-col-xs-4 aui-text-center" onclick="ClickModule(1)">
             <span class="aui-iconfont aui-icon-emoji aui-text-danger"></span>
+
             <p>技能</p>
         </li>
-        <li class="aui-col-xs-4 aui-text-center">
+        <li class="aui-col-xs-4 aui-text-center" onclick="ClickModule(2)">
             <span class="aui-iconfont aui-icon-favor aui-text-warning"></span>
+
             <p>任务</p>
         </li>
-        <li class="aui-col-xs-4 aui-text-center">
+        <li class="aui-col-xs-4 aui-text-center" onclick="ClickModule(3)">
             <span class="aui-iconfont aui-icon-phone aui-text-pink"></span>
+
             <p>商店</p>
         </li>
-        <li class="aui-col-xs-4 aui-text-center">
+        <li class="aui-col-xs-4 aui-text-center" onclick="ClickModule(4)">
             <span class="aui-iconfont aui-icon-taxi aui-text-dark"></span>
+
             <p>阵营</p>
         </li>
-        <li class="aui-col-xs-4 aui-text-center">
+        <li class="aui-col-xs-4 aui-text-center" onclick="ClickModule(5)">
             <span class="aui-iconfont aui-icon-camera aui-text-info"></span>
+
             <p>好友</p>
         </li>
-        <li class="aui-col-xs-4 aui-text-center">
+        <li class="aui-col-xs-4 aui-text-center" onclick="ClickModule(6)">
             <span class="aui-iconfont aui-icon-like aui-text-blue"></span>
+
             <p>神职</p>
         </li>
-        <li class="aui-col-xs-4 aui-text-center">
+        <li class="aui-col-xs-4 aui-text-center" onclick="ClickModule(7)">
             <span class="aui-iconfont aui-icon-deliver aui-text-danger"></span>
+
             <p>帮助</p>
         </li>
-        <li class="aui-col-xs-4 aui-text-center">
+        <li class="aui-col-xs-4 aui-text-center" onclick="ClickModule(8)">
             <span class="aui-iconfont aui-icon-evaluate aui-text-warning"></span>
-            <p>论坛</p>
+
+            <p>留言</p><!--或者论坛-->
         </li>
     </ul>
 </div>
@@ -87,8 +96,8 @@
                 destinationType: 'base64',
                 allowEdit: true,
                 quality: '50',
-                targetWidth: 140,
-                targetHeight: 140,
+                targetWidth: 100,
+                targetHeight: 100,
                 saveToPhotoAlbum: false
             }, function (ret, err) {
                 if (ret) {
@@ -101,7 +110,7 @@
                         uid: $api.getStorage('accountInfo')['uid'],
                         img: base64Data
                     };
-                    $.post('http://'+GetServerHost()+'/portrait', data,
+                    $.post('http://' + GetServerHost() + '/portrait', data,
                             function (text, status) {
                                 alert(text);
                             }
@@ -112,6 +121,21 @@
             });
         })
     };
+
+    function ClickModule(index) {
+        switch (index) {
+            case 8:
+            {
+                api.openWin({
+                    name:'messageBoard',
+                    url:'./messageBoard.html'
+                });
+                break;
+            }
+            default :
+                break;
+        }
+    }
 
     //每秒提升的数据
     var $playerFollowerIncrement = 5;
