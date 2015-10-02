@@ -90,35 +90,35 @@
     apiready = function () {
         $('#portrait').click(function () {
             //打开图片
-            api.getPicture({
-                encodingType: 'jpg',
-                mediaValue: 'pic',
-                destinationType: 'base64',
-                allowEdit: true,
-                quality: '50',
-                targetWidth: 100,
-                targetHeight: 100,
-                saveToPhotoAlbum: false
-            }, function (ret, err) {
-                if (ret) {
-                    var base64Data = ret.base64Data;
-                    //修改头像为获取的数据
-                    $('#portrait img').attr('src', base64Data);
+             api.getPicture({
+             encodingType: 'jpg',
+             mediaValue: 'pic',
+             destinationType: 'base64',
+             allowEdit: true,
+             quality: '50',
+             targetWidth: 100,
+             targetHeight: 100,
+             saveToPhotoAlbum: false
+             }, function (ret, err) {
+             if (ret) {
+             var base64Data = ret.base64Data;
+             //修改头像为获取的数据
+             $('#portrait img').attr('src', base64Data);
 
-                    //上传数据
-                    var data = {
-                        uid: $api.getStorage('accountInfo')['uid'],
-                        img: base64Data
-                    };
-                    $.post('http://' + GetServerHost() + '/portrait', data,
-                            function (text, status) {
-                                alert(text);
-                            }
-                    );
-                } else {
-                    api.alert({msg: err.msg});
-                }
-            });
+             //上传数据
+             var data = {
+             uid: $api.getStorage('accountInfo')['uid'],
+             img: base64Data
+             };
+             $.post('http://' + GetServerHost() + '/portrait', data,
+             function (text, status) {
+             alert(text);
+             }
+             );
+             } else {
+             api.alert({msg: err.msg});
+             }
+             });
         })
     };
 
@@ -127,8 +127,8 @@
             case 8:
             {
                 api.openWin({
-                    name:'messageBoard',
-                    url:'./messageBoard.html'
+                    name: 'messageBoard',
+                    url: './messageBoard.html'
                 });
                 break;
             }

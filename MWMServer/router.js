@@ -33,6 +33,7 @@ function InitRouter(app) {
         }
         else{
             console.log("错误:账号或密码为空");
+            res.setHeader("Access-Control-Allow-Origin", "*");
             res.send("错误:账号或密码为空");
         }
     });
@@ -73,6 +74,7 @@ function InitRouter(app) {
         var base64Data = img.replace(/^data:image\/\w+;base64,/, "");//过滤data:URL
         var dataBuffer = new Buffer(base64Data, 'base64');
         fs.writeFile("./upload/portrait/" + uid + ".jpg", dataBuffer, function (err) {
+            res.setHeader("Access-Control-Allow-Origin", "*");
             if (err) {
                 res.send(err);
             } else {
@@ -81,7 +83,6 @@ function InitRouter(app) {
             }
         });
     });
-
 
     app.get('/upload', function (req, res) {
         var body = '<html>' +
