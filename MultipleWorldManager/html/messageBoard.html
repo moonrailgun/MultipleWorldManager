@@ -123,18 +123,24 @@
 
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/mwmBase.js"></script>
+<script type="text/javascript" src="../script/messageBoard.js"></script>
 <script type="text/javascript">
     apiready = function () {
         var $header = $api.dom('header');
         $api.fixIos7Bar($header);
     };
 
-    function SwitchMessage(obj, index) {
-        var doms = $api.domAll('.aui-tab-nav li');
-        for (var i = 0; i < doms.length; i++) {
-            $api.removeCls(doms[i], 'active');
-        }
-        $api.addCls(obj, 'active');
-    }
+    (function(){
+        var msg = new Message();
+        msg.uid = 1000;
+        msg.author = '测试';
+        msg.content = '测试';
+        msg.like = 5;
+        msg.time = '6小时前';
+
+        AddMessage(msg);
+    })();
 </script>
+
 </html>
