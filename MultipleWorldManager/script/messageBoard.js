@@ -24,16 +24,46 @@ function AddMessage(msg) {
         img = '';
     $main = $api.dom('#main');
     message += '<div class="message">';
-    if(msg.uid == 0){img = '../image/DefaultPortrait.jpg';}
-    else{img = 'http://'+GetServerHost()+'/portrait?uid='+msg.uid;}
-    message += '<img class="chatPortrait" src="'+img+'"/>';
+    if (msg.uid == 0) {
+        img = '../image/DefaultPortrait.jpg';
+    }
+    else {
+        img = 'http://' + GetServerHost() + '/portrait?uid=' + msg.uid;
+    }
+    message += '<img class="chatPortrait" src="' + img + '"/>';
     message += '<div class="messageInfo">';
-    message += '<div class="author">'+msg.author+'</div>';
-    message += '<div class="content">'+msg.content+'</div>';
-    message += '<div class="like"><span class="aui-iconfont aui-icon-likefill"></span><span class="like-num">'+msg.like+'</span></div>';
-    message += '</div><div class="time">'+msg.time+'</div></div>';
+    message += '<div class="author">' + msg.author + '</div>';
+    message += '<div class="content">' + msg.content + '</div>';
+    message += '<div class="like"><span class="aui-iconfont aui-icon-likefill"></span><span class="like-num">' + msg.like + '</span></div>';
+    message += '</div><div class="time">' + msg.time + '</div></div>';
 
     $api.append($main, message);
+}
+
+//发送留言
+function SendMessage() {
+    var $contentDom = $api.dom('#sendMessageContent');
+    var $content = $api.html($contentDom);
+    var $uid = $api.getStorage('accountInfo').uid;
+    var $author = $api.getStorage('accountInfo').username;
+    $.post('http://' + GetServerHost() + "/message", {
+        uid: $uid,
+        author: $author,
+        content: $content
+    }, function (data, status) {
+        alert(data.msg);
+        if (data.returnCode == 0) {
+            var msg = new Message();
+            msg.uid = $uid;
+            msg.author = $author;
+            msg.content = $content;
+            msg.like = 0;
+            msg.time = '刚刚';
+            AddMessage(msg);
+        }
+    });
+}
+
 function SwitchMessageLeaveContainer(isShow) {
     var container = $('#writeMessageContainer');
     if (isShow) {

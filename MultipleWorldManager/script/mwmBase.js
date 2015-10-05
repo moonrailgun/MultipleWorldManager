@@ -21,9 +21,10 @@ function InitConfig() {
         author: 'moonrailgun'
     });
 
-    //测试数据
+    //测试数据-用户信息
     $api.setStorage('accountInfo', {
-        uid: 1000
+        uid: 1000,
+        username:"moonrailgun"
     });
 }
 
