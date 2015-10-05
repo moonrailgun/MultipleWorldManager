@@ -42,25 +42,35 @@ function InitRouter(app) {
     //头像处理
     app.get('/portrait', function (req, res) {
         var uid;
-
         if (uid = req.query.uid) {
-            var options = {
-                root: __dirname + '/upload/portrait/',
-                dotfiles: 'deny',
-                headers: {
-                    'x-timestamp': Date.now(),
-                    'x-sent': true
+            var path = '';
+            path += './upload/portrait/' + uid + '.jpg';
+            fs.exists(path, function (exists) {
+                if (!exists) {
+                    //如果头像图片不存在
+                    console.log("请求的头像不存在。返回默认头像");
+                    uid = 0;
                 }
-            };
 
-            res.sendFile(uid + '.jpg', options, function (err) {
-                if (err) {
-                    console.log(err);
-                    res.status(err.status).end();
-                }
-                else {
-                    console.log('Sent:', uid + '.jpg');
-                }
+                var options = {
+                    root: __dirname + '/upload/portrait/',
+                    dotfiles: 'deny',
+                    headers: {
+                        'x-timestamp': Date.now(),
+                        'x-sent': true
+                    }
+                };
+
+                res.sendFile(uid + '.jpg', options, function (err) {
+                    if (err) {
+                        console.log(err);
+                        res.status(err.status).end();
+                    }
+                    else {
+                        console.log('Sent:', uid + '.jpg');
+                    }
+                });
+
             });
         } else {
             res.send('没有uid参数');
