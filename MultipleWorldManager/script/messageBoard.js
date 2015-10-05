@@ -86,3 +86,22 @@ function MessageUIInit() {
     var submitBtnLineHeight = submitBtn.css("height");
     submitBtn.css({"line-height": submitBtnLineHeight});
 }
+
+function QueryMessage() {
+    $.get("http://"+GetServerHost()+"/message",function(data,status){
+        var obj = data;
+        console.log("获取到"+obj.length+"条数据");
+        for(var i = 0;i<obj.length;i++)
+        {
+            var json = obj[i];
+            var msg = new Message();
+            msg.uid = json.uid;
+            msg.author = json.author;
+            msg.content =json.content;
+            msg.like = json.like;
+            msg.time = json.time;
+
+            AddMessage(msg);
+        }
+    });
+}

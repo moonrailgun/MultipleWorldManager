@@ -8,6 +8,7 @@ var mwmSql = require('./mwmSql');
 
 //app为express对象
 function InitRouter(app) {
+    //todo:暂时设置为允许跨网请求数据
     //express配置
     app.locals.title = "MWMServer";
     //app.use(bodyParser.json());
@@ -86,13 +87,23 @@ function InitRouter(app) {
     });
 
     //留言处理
+    app.get('/message', function (req, res) {
+        //todo:暂时只查询最近30条数据
+        //id自增所以id越大数据越新
+        var sql = 'SELECT * FROM message ORDER BY id DESC LIMIT 0,30';
+        mwmSql.query(sql, function (ret) {
+            console.log("请求留言");
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.send(ret);
+        });
+    });
     app.post('/message', function (req, res) {
         var uid = req.body.uid;
         var author = req.body.author;
         var content = req.body.content;
 
         //todo 现在是简单处理。数据信息未经过验证
-        console.log(uid+"请求留言");
+        console.log(uid + "请求留言");
         if (uid && author && content) {
             console.log("合法，开始处理");
             var sql = "INSERT INTO message(uid,author,content,time) VALUES (" + uid + ",'" + author + "','" + content + "',now())";
