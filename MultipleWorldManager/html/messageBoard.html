@@ -141,35 +141,7 @@
         <li onclick="SwitchMessage(this,1)">官方</li>
     </ul>
 </div>
-<div id="main">
-    <div class="message">
-        <img class="chatPortrait" src="../image/DefaultPortrait.jpg"/>
-        <div class="messageInfo">
-            <div class="author">moonrailgun</div>
-            <div class="content">测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言</div>
-            <div class="like"><span class="aui-iconfont aui-icon-likefill"></span><span class="like-num">12</span></div>
-        </div>
-        <div class="time">一天前</div>
-    </div>
-    <div class="message">
-        <img class="chatPortrait" src="../image/DefaultPortrait.jpg"/>
-        <div class="messageInfo">
-            <div class="author">moonrailgun</div>
-            <div class="content">测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言</div>
-            <div class="like"><span class="aui-iconfont aui-icon-likefill"></span><span class="like-num">12</span></div>
-        </div>
-        <div class="time">一天前</div>
-    </div>
-    <div class="message">
-        <img class="chatPortrait" src="../image/DefaultPortrait.jpg"/>
-        <div class="messageInfo">
-            <div class="author">moonrailgun</div>
-            <div class="content">测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言测试留言</div>
-            <div class="like"><span class="aui-iconfont aui-icon-likefill"></span><span class="like-num">12</span></div>
-        </div>
-        <div class="time">一天前</div>
-    </div>
-</div>
+<div id="main"></div>
 <div id="writeMessageContainer">
     <div class="overlay" onclick="return false;"></div>
     <div id="writeMessage">
@@ -200,6 +172,7 @@
         msg.time = '6小时前';
 
         AddMessage(msg);
+        InitConfig();
     })();
 </script>
 

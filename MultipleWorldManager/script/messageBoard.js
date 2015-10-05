@@ -43,7 +43,7 @@ function AddMessage(msg) {
 //发送留言
 function SendMessage() {
     var $contentDom = $api.dom('#sendMessageContent');
-    var $content = $api.html($contentDom);
+    var $content = $api.val($contentDom);
     var $uid = $api.getStorage('accountInfo').uid;
     var $author = $api.getStorage('accountInfo').username;
     $.post('http://' + GetServerHost() + "/message", {
@@ -51,7 +51,7 @@ function SendMessage() {
         author: $author,
         content: $content
     }, function (data, status) {
-        alert(data.msg);
+        console.log(data.msg);
         if (data.returnCode == 0) {
             var msg = new Message();
             msg.uid = $uid;
@@ -60,7 +60,9 @@ function SendMessage() {
             msg.like = 0;
             msg.time = '刚刚';
             AddMessage(msg);
+            SwitchMessageLeaveContainer(false);
         }
+        alert(data.msg);
     });
 }
 

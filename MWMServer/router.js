@@ -31,7 +31,7 @@ function InitRouter(app) {
                 res.send(ret);
             })
         }
-        else{
+        else {
             console.log("错误:账号或密码为空");
             res.setHeader("Access-Control-Allow-Origin", "*");
             res.send("错误:账号或密码为空");
@@ -70,6 +70,7 @@ function InitRouter(app) {
         console.log(req.body);
         var uid = req.body.uid;
         var img = req.body.img;
+        //todo 现在是简单处理。数据信息未经过验证
 
         var base64Data = img.replace(/^data:image\/\w+;base64,/, "");//过滤data:URL
         var dataBuffer = new Buffer(base64Data, 'base64');
@@ -82,6 +83,32 @@ function InitRouter(app) {
                 console.log("上传成功！")
             }
         });
+    });
+
+    //留言处理
+    app.post('/message', function (req, res) {
+        var uid = req.body.uid;
+        var author = req.body.author;
+        var content = req.body.content;
+
+        //todo 现在是简单处理。数据信息未经过验证
+        console.log(uid+"请求留言");
+        if (uid && author && content) {
+            console.log("合法，开始处理");
+            var sql = "INSERT INTO message(uid,author,content,time) VALUES (" + uid + ",'" + author + "','" + content + "',now())";
+            mwmSql.query(sql, function (ret) {
+                console.log(ret);
+                var r = {
+                    msg: "发送留言成功",
+                    returnCode: 0
+                };
+                res.setHeader("Access-Control-Allow-Origin", "*");
+                res.send(r);
+            })
+        }
+        else {
+            console.log("数据有空");
+        }
     });
 
     app.get('/upload', function (req, res) {
