@@ -73,6 +73,56 @@
             color: #8e8e8e;
             font-size: 12px;
         }
+        #writeMessageContainer{
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: none;
+            height: 100%;
+            width: 100%;
+            float: none;
+        }
+        #writeMessageContainer.active{
+            display: block;
+        }
+        #writeMessageContainer div.overlay{
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            background-color: rgba(0,0,0,0.4);
+            pointer-events: none;
+        }
+        #writeMessage{
+            height: 50%;
+            width: 70%;
+            position: fixed;
+            left: 15%;
+            top:20%;
+            background-color: #eeeeee;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        #writeMessage div.title{
+            display: block;
+            text-align: center;
+            padding: 0 10px 0 10px;
+            background-color: #65d6ff;
+            height: 20%;
+        }
+        #writeMessage textarea{
+            height: 60%;
+            margin: 0;
+            border-radius: 0;
+        }
+        #writeMessage div.aui-btn{
+            height: 20%;
+            border-radius: 0;
+            position: absolute;
+            left: 0;
+            bottom:0;
+            padding: 0;
+            width: 50%;
+        }
     </style>
 </head>
 <body>
@@ -82,7 +132,7 @@
     </a>
     <div class="aui-title">留言板</div>
     <a class="aui-pull-right">
-        <span class="aui-iconfont aui-icon-write"></span>
+        <span class="aui-iconfont aui-icon-write" onclick="SwitchMessageLeaveContainer(true)"></span>
     </a>
 </header>
 <div class="aui-tab">
@@ -120,13 +170,19 @@
         <div class="time">一天前</div>
     </div>
 </div>
-<div id="writeMessage" class="active">
-    <span>留言</span>
-    <input type="text" placeholder="在这里输入你的留言"/>
-    <div class="aui-btn aui-btn-success" onclick="return false;">确认</div>
+<div id="writeMessageContainer">
+    <div class="overlay" onclick="return false;"></div>
+    <div id="writeMessage">
+        <div class="title">添加留言</div>
+        <textarea id="sendMessageContent" type="text" maxlength="255" placeholder="在这里输入你的留言"></textarea>
+        <div class="aui-btn aui-btn-success" onclick="SendMessage()">确认</div>
+        <div class="aui-btn aui-btn-danger" style="left: auto; right: 0;" onclick="SwitchMessageLeaveContainer(false)">取消</div>
+    </div>
 </div>
+
 </body>
 <script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.4.js"></script>
 <script type="text/javascript" src="../script/mwmBase.js"></script>
 <script type="text/javascript" src="../script/messageBoard.js"></script>
 <script type="text/javascript">

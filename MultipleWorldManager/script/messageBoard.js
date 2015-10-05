@@ -34,4 +34,23 @@ function AddMessage(msg) {
     message += '</div><div class="time">'+msg.time+'</div></div>';
 
     $api.append($main, message);
+function SwitchMessageLeaveContainer(isShow) {
+    var container = $('#writeMessageContainer');
+    if (isShow) {
+        container.addClass('active');
+        MessageUIInit();
+    }
+    else {
+        container.removeClass('active');
+    }
+}
+
+function MessageUIInit() {
+    var title = $('#writeMessage div.title');
+    var titleLineHeight = title.css("height");
+    title.css({"line-height": titleLineHeight});
+
+    var submitBtn = $('#writeMessage div.aui-btn');
+    var submitBtnLineHeight = submitBtn.css("height");
+    submitBtn.css({"line-height": submitBtnLineHeight});
 }
