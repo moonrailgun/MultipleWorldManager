@@ -148,7 +148,6 @@ function InitRouter(app) {
 
         res.send(body);
     });
-
     app.post('/upload', function (req, res) {
         console.log("上传数据");
         //生成multiparty对象，并配置下载目标路径
@@ -165,7 +164,7 @@ function InitRouter(app) {
                 var uploadedPath = inputFile.path;
                 var dstPath = './public/files/' + inputFile.originalFilename;
                 //重命名为真实文件名
-                //-----------------------这里失败了-----------------------
+                //todo:-----------------------这里失败了-----------------------
                 fs.rename(uploadedPath, dstPath, function (err) {
                     if (err) {
                         console.log('rename error: ' + err);
