@@ -1,4 +1,5 @@
 //登陆游戏
+//todo:未完成
 function Login(username, password) {
     var token = '123456789';
     return token;

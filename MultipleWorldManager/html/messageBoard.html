@@ -126,15 +126,6 @@
     </style>
 </head>
 <body>
-<header class="aui-bar aui-bar-nav aui-bar-info">
-    <a class="aui-pull-left">
-        <span class="aui-iconfont aui-icon-left" onclick="api.closeWin();"></span>
-    </a>
-    <div class="aui-title">留言板</div>
-    <a class="aui-pull-right">
-        <span class="aui-iconfont aui-icon-write" onclick="SwitchMessageLeaveContainer(true)"></span>
-    </a>
-</header>
 <div class="aui-tab">
     <ul class="aui-tab-nav">
         <li class="active" onclick="SwitchMessage(this,0)">全部</li>
@@ -159,8 +150,6 @@
 <script type="text/javascript" src="../script/messageBoard.js"></script>
 <script type="text/javascript">
     apiready = function () {
-        var $header = $api.dom('header');
-        $api.fixIos7Bar($header);
     };
 
     (function(){

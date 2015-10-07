@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>window</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui-win.css"/>
+</head>
+<body>
+<header class="aui-bar aui-bar-nav aui-bar-info">
+    <a class="aui-pull-left">
+        <span class="aui-iconfont aui-icon-left" onclick="CloseWin();"></span>
+    </a>
+    <div class="aui-title">标题</div>
+</header>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript">
+    var currentFrameName;
+
+    apiready = function () {
+        var $header = $api.dom('header');
+        $api.fixIos7Bar($header);
+
+
+        var pageParam = api.pageParam;
+        //标题
+        var title = pageParam.title;
+        if (title) {
+            $api.html($api.dom('title'), title);
+            $api.html($api.dom('header div.aui-title'), title);
+        }
+
+        //标题附加
+        var addons = pageParam.addons;
+        if (addons) {
+            $api.append($api.dom('header'), addons);
+        }
+
+        //窗口内容
+        var content = pageParam.content;
+        currentFrameName = content.name;
+        if (content) {
+            var headerHeight = $api.offset($header).h;
+            api.openFrame({
+                name: content.name,
+                url: content.url,
+                rect: {
+                    x: 0,
+                    y: headerHeight,
+                    w: api.winWidth,
+                    h: api.winHeight - headerHeight
+                },
+                bounces: true,
+                vScrollBarEnabled: true,
+                hScrollBarEnabled: false
+            });
+        }
+    };
+
+    function CloseWin() {
+        if (currentFrameName) {
+            api.closeFrame({name: currentFrameName});
+        }
+        api.closeWin();
+    }
+
+    function RunInFrame(funcStr) {
+        api.execScript({
+            frameName: currentFrameName,
+            script: funcStr
+        });
+    }
+</script>
+</html>
