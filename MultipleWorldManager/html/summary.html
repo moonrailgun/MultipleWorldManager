@@ -127,12 +127,18 @@
         switch (index) {
             case 8:
             {
+                var addons = '<a class="aui-pull-right"><span class="aui-iconfont aui-icon-write" onclick="RunInFrame(\'SwitchMessageLeaveContainer(true)\')"></span></a>';
                 api.openWin({
-                    name: 'messageBoard',
-                    url: './messageBoard.html',
-                    softInputMode: "resize",
-                    scrollToTop: false,
-                    hScrollBarEnabled: false
+                    name: 'window',
+                    url: './window.html',
+                    pageParam: {
+                        title: '留言板',
+                        addons: addons,
+                        content: {
+                            name: 'messageBoard',
+                            url: './messageBoard.html'
+                        }
+                    }
                 });
                 break;
             }

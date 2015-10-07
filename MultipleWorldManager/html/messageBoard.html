@@ -150,6 +150,22 @@
 <script type="text/javascript" src="../script/messageBoard.js"></script>
 <script type="text/javascript">
     apiready = function () {
+        //下拉刷新
+        api.setRefreshHeaderInfo({
+            visible: true,
+            loadingImg: 'widget://image/Box-48.png',
+            bgColor: '#ccc',
+            textColor: '#fff',
+            textDown: '下拉刷新...',
+            textUp: '松开刷新...',
+            showTime: true
+        }, function(ret, err){
+            //从服务器加载数据，完成后调用api.refreshHeaderLoadDone()方法恢复组件到默认状态
+            //刷新页面
+            ClearMessage();//清空数据
+            QueryMessage();//重新获取数据
+            api.refreshHeaderLoadDone();
+        });
     };
 
     (function(){

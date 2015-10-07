@@ -123,3 +123,8 @@ function QueryMessage() {
         }
     });
 }
+
+//清空数据
+function ClearMessage() {
+    $api.html($api.dom('#main'), '');
+}
