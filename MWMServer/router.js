@@ -5,6 +5,7 @@ var multiparty = require('multiparty');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var mwmSql = require('./mwmSql');
+var mwmBase = require('./mwmBase');
 
 //app为express对象
 function InitRouter(app) {
@@ -176,11 +177,11 @@ function InitRouter(app) {
 
             res.send("上传完毕");
         });
+    });
 
-        app.get('*', function (req, res) {
-            console.log("请求了不存在的页" + req.url);
-            res.send('404 not found');
-        });
+    app.get('*', function (req, res) {
+        console.log("请求了不存在的页" + req.url);
+        res.send('404 not found');
     });
 }
 
