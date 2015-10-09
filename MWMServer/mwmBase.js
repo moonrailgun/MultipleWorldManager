@@ -20,4 +20,33 @@ function CheckUUID(uuid, func) {
     });
 }
 
+/*
+//无参多任务模块
+//未测试
+var MultiTasks = function(){
+    var taskQueue = [];
+    var taskIndex = 0;
+    var currentIndex = 0;
+
+    this.Task = function(func){
+        this.taskName = "";
+        this.func = func;//任务函数
+    };
+
+    this.push = function(task){
+        taskqueue.push(task);
+    };
+
+    this.startQueue = function(){
+        if(taskQueue.length > 0)
+        {
+            for(var i = 0;i<taskQueue.length;i++)
+            {
+                var task = taskQueue[i];
+                task.func();
+            }
+        }
+    };
+};*/
+
 exports.CheckUUID = CheckUUID;
