@@ -16,7 +16,7 @@
         serverConfig = $api.getStorage('MWM_Server');
 
     if (serverConfig) {
-        wsURL = "ws://" + serverConfig['url'] + ":" + port;
+        wsURL = "ws://" + serverConfig['url'] + ":" + serverConfig['port'];
     }
 
     //聊天逻辑处理对象
@@ -94,8 +94,7 @@
             this.userid = $api.getStorage('uid');
             this.username = $api.getStorage('username');
 
-            d.getElementById("showusername").innerHTML = this.username;//显示名字
-            this.msgObj.style.minHeight = (this.screenheight - db.clientHeight + this.msgObj.clientHeight) + "px";
+            //this.msgObj.style.minHeight = (this.screenheight - db.clientHeight + this.msgObj.clientHeight) + "px";
             this.scrollToBottom();
 
             //连接websocket后端服务器

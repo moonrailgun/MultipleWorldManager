@@ -13,6 +13,10 @@
     <style>
         #header {
             float: left;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 10;
         }
 
         #header div {
@@ -29,14 +33,14 @@
         }
 
         #mainInfo {
-            margin-top: 10px;
+            margin-top: 46px;
         }
     </style>
 </head>
 
 <body>
 <div id="header">
-    <div class="aui-col-xs-4 actived" onclick="ToggleModules(this,0)">在线聊天室</div>
+    <div class="aui-col-xs-4" onclick="ToggleModules(this,0)">在线聊天室</div>
     <div class="aui-col-xs-4" onclick="ToggleModules(this,1)">好友</div>
     <div class="aui-col-xs-4" onclick="ToggleModules(this,2)">邮件</div>
 </div>
@@ -49,48 +53,42 @@
     apiready = function () {
 
     };
-    //切换模块
-    function ToggleModules(obj,index) {
-        var $dom = $("#header div.actived");
-        //清除激活的按钮
-        $dom.removeClass('actived');
-        //添加激活的按钮
-        $api.addCls(obj,'actived');
 
-        if(index == 0)
-        {
+    //切换模块
+    function ToggleModules(obj, index) {
+        //清除激活的按钮
+        $('#header div.actived').removeClass('actived');
+        //添加激活的按钮
+        $(obj).addClass('actived');
+
+        if (index == 0) {
             ShowChattingRoom();
         }
-        else
-        {
+        else {
             alert("未定义的方法");
         }
     }
 
-    function ShowChattingRoom()
-    {
+    function ShowChattingRoom() {
         var $mainInfoDom = $("#mainInfo");
 
-        $.get("chattingRoom.html",function(data,status){
+        $.get("./chattingRoom.html", function (data, status) {
             $mainInfoDom.html(data);
         });
-
-        /*
-        api.ajax({
-            url:'./chattingRoom.html',
-            method:'get',
-            dataType:'text'
-        },function(ret,err){
-            if (ret) {
-                api.alert({msg: ret});
-                $api.html(mainInfoDom, "");
-            }else {
-                api.alert({
-                    msg:('错误码：'+err.code+'；错误信息：'+err.msg+'网络状态码：'+err.statusCode)
-                });
-            }
-        })*/
     }
+
+    //更新maininfo div大小
+    function UpdateMainSize(){
+        var bodyHeight = parseInt($('body').css("height"));
+        $('#mainInfo').css("height", (bodyHeight - 46 - 6) + "px");
+    }
+
+    $(document).ready(function () {
+        UpdateMainSize();
+        $(window).resize(UpdateMainSize);
+
+        ToggleModules(this,0);
+    });
 </script>
 
 </html>

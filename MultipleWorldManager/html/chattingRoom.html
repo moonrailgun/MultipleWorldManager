@@ -1,13 +1,212 @@
-<link rel="stylesheet" type="text/css" href="../css/aui.css"/>
-<link rel="stylesheet" type="text/css" href="../css/chattingRoom.css"/>
-<div id="chatbox">
-    <span id="chattingRoomName">聊天室大厅</span>
-    <span style="float:right; margin-right:10px;">
-    <span id="showusername"></span>
-    <span>|</span>
-    <a onclick="CHAT.logout()" style="color:#fff;">退出</a></span>
-</div>
-</div>
+<style>
+    /*均使用border-box内边框模型*/
+    *, *:before, *:after {
+        box-sizing: border-box;
+        text-size-adjust: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    body {
+        background-color: #efeff4;
+    }
+
+    #chatbox {
+        display: none;
+    }
+
+    #chatbox > div {
+        background: #3d3d3d;
+        height: 28px;
+        width: 100%;
+        font-size: 12px;
+    }
+
+    #chatbox > div > div {
+        line-height: 28px;
+        color: #fff;
+    }
+
+    #chatbox #chattingRoomName {
+        text-align: left;
+        margin-left: 10px;
+    }
+
+    #doc {
+        height: 100%;
+        line-height: 1.4;
+        position: relative;
+    }
+
+    section {
+        padding: 10px;
+        clear: both;
+    }
+
+    #message {
+        border-bottom: 0;
+        background-color: #eceff4;
+        position: absolute;
+        left: 0;
+        top:0;
+        height: auto;
+        width: 100%;
+        padding-bottom: 44px;
+    }
+
+    .system {
+        text-align: center;
+        color: #999;
+        font-size: .8em;
+    }
+
+    .system .msg-system {
+        color: #999;
+        font-size: 13px;
+    }
+
+    .user {
+        float: right;
+        text-align: right;
+    }
+
+    section.user > div {
+        max-width: 225px;
+        position: relative;
+        display: inline-block;
+        padding: 8px;
+        margin: 0 10px 0 12px;
+        text-align: left;
+        border-radius: 10px;
+        color: #fff;
+        box-shadow: inset 0 0 1px #007aff;
+        background-color: #007aff;
+        vertical-align: top;
+        word-break: break-all;
+    }
+
+    section.user > div:before {
+        content: "";
+        position: absolute;
+        right: -5px;
+        top: 4px;
+        width: 0;
+        height: 0;
+        border-top: solid transparent;
+        border-left: 7px solid #007aff;
+        border-bottom: 4px solid transparent;
+    }
+
+    .user > span {
+        font-weight: normal;
+        font-size: 14px;
+        color: #f60;
+        max-width: 45px;
+        height: 36px;
+        overflow: hidden;
+        float: right;
+    }
+
+    .service {
+        float: left;
+    }
+
+    .service > span {
+        max-width: 45px;
+        height: 36px;
+        font-weight: normal;
+        font-size: 14px;
+        color: #999;
+        overflow: hidden;
+        float: left;
+    }
+
+    section.service > div {
+        max-width: 225px;
+        display: inline-block;
+        position: relative;
+        padding: 12px;
+        margin: 0 20px 0 10px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: inset 0 0 1px #fff;
+        vertical-align: top;
+    }
+
+    section.service > div:before {
+        content: "";
+        position: absolute;
+        left: -5px;
+        top: 4px;
+        width: 0;
+        height: 0;
+        border-top: solid transparent;
+        border-right: 7px solid #fff;
+        border-bottom: 4px solid transparent;
+    }
+
+    section.service .chatPortrait, section.user .chatPortrait {
+        height: 40px;
+        width: 40px;
+        border-radius: 20px;
+    }
+
+    .input-box {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -moz-box;
+        position: fixed;
+        padding: 8px 10px;
+        width: 100%;
+        box-shadow: 0 0 1px #000;
+        background-color: #fff;
+        left: 0;
+        bottom: 0;
+    }
+
+    .input-box .input {
+        background-color: #fff;
+        -webkit-box-flex: 1;
+        height: 28px;
+        line-height: 25px;
+    }
+
+    .input-box .input input {
+        margin: 0;
+        padding: 0 6px;
+        height: 28px;
+        width: 100%;
+        font-size: 14px;
+        background-color: #fbfbfb;
+        border: none;
+        -webkit-border-radius: 15px;
+        border-radius: 15px;
+        color: #000;
+        box-shadow: 0 0 1px #000;
+    }
+
+    .input-box button {
+        font-size: 15px;
+        margin-left: 11px;
+    }
+
+    .action button {
+        border: none;
+        border-radius: 30px;
+        color: #8c8c8c;
+        height: 28px;
+        width: 68px;
+        text-align: center;
+        background: #fbfbfb;
+        box-shadow: 0 0 1px #000, 0 2px 2px #eee;
+        font-size: 15px;
+        margin-left: 11px;
+    }
+
+    .action button:active {
+        color: #fff;
+        background-color: #0044cc;
+    }
+</style>
 <div id="doc">
     <div id="chat">
         <div id="message" class="message">
@@ -23,13 +222,30 @@
         </div>
     </div>
 </div>
-</div>
-</body>
-<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.4.js"></script>
 <script type="text/javascript" src="../script/socket.io.js"></script>
 <script type="text/javascript" src="../script/chattingRoomClient.js"></script>
 <script>
-    apiready = function() {
-        CHAT.init();//初始化连接
+    apiready = function () {
+        
+    };
+
+    var isLogin = false;
+
+    function ChattingRoomUIInit(){
     }
+
+    $(document).ready(function () {
+        if(!isLogin){
+            isLogin = true;
+            CHAT.init();//初始化连接
+        }
+        ChattingRoomUIInit();
+
+        $("input").click(function(){
+            //更新位置
+            alert("a");
+            $(this).focus();
+        });
+    });
 </script>
