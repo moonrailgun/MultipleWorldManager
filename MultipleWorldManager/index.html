@@ -113,6 +113,12 @@ function OnRegister() {
     api.alert({
         msg: "点击了注册"
     });
+
+    api.openWin({
+        name: 'register',
+        url: './html/register.html',
+        bounces: false,
+    });
 }
 
 //
